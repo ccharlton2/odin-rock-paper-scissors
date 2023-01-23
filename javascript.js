@@ -41,7 +41,13 @@ function getComputerChoice() {
 }
 
 function getPlayerChoice() {
-    let choice = prompt("Enter your choice!");
+    let choice = "";
+
+    while ((choice === "") || !(isValidPlayerChoice(choice) === "Valid")) {
+        choice = cleanString(prompt("Enter your choice!"));
+    }
     
     return choice;
 }
+
+console.log(getPlayerChoice())
