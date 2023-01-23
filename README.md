@@ -21,3 +21,5 @@ HTML and Javascript
 To test my skills and learn more about programming
 
 # How does it work?
+
+The user is asked to input their choice (rock, paper, or scissors). User input is validated, however it is not case sensitive and can contain whitespace. The game is played up to 5 rounds. If either player reaches a score of 3 before the game is over, the game will end.
