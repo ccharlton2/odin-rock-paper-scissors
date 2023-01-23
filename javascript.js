@@ -75,3 +75,36 @@ function playRound(playerSelection, computerSelection) {
         return 'loss';
     }
 }
+
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+    let draws = 0;
+    let roundResult = '';
+
+    for (let roundsPlayed = 0; roundsPlayed < 5; roundsPlayed++) {
+
+        roundResult = playRound(getPlayerChoice(), getComputerChoice());
+
+        if (roundResult === 'win') {
+            playerScore += 1;
+        }
+        else if (roundResult === 'loss') {
+            computerScore += 1;
+        }
+        else {
+            draws += 1;
+        } 
+    }
+
+    if (playerScore > computerScore) {
+        console.log('You win!')
+    }
+    else {
+        console.log('You lose!')
+    }
+
+    console.log(`wins: ${playerScore}, losses: ${computerScore}, draws: ${draws}`)
+}
+
+game();
