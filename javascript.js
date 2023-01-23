@@ -50,4 +50,28 @@ function getPlayerChoice() {
     return choice;
 }
 
-console.log(getPlayerChoice())
+function playRound(playerSelection, computerSelection) {
+    console.log(`Player choice: ${playerSelection}`)
+    console.log(`Comp choice: ${computerSelection}`)
+
+    if (playerSelection === computerSelection) {
+        console.log(`You both chose ${playerSelection}, draw!`)
+        return 'draw';
+    }
+    else if (playerSelection === 'rock' && computerSelection === 'scissors') {
+        console.log(`${playerSelection} beats ${computerSelection}, you win!`)
+        return 'win';
+    }
+    else if (playerSelection === 'scissors' && computerSelection === 'paper') {
+        console.log(`${playerSelection} beats ${computerSelection}, you win!`)
+        return 'win';
+    }
+    else if (playerSelection === 'paper' && computerSelection === 'rock') {
+        console.log(`${playerSelection} beats ${computerSelection}, you win!`)
+        return 'win';
+    }
+    else {
+        console.log(`${computerSelection} beats ${playerSelection}, you lose!`)
+        return 'loss';
+    }
+}
