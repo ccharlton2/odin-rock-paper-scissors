@@ -24,7 +24,6 @@ function isValidPlayerChoice(choice) {
     }
 }
 
-// converts an integer into a string value
 function getComputerChoice() {
     let randomInt = getRandomInt(1, 4);
     let choice = function (number) {
@@ -82,7 +81,7 @@ function game() {
     let draws = 0;
     let roundResult = '';
 
-    for (let roundsPlayed = 0; roundsPlayed < 5; roundsPlayed++) {
+    for (let roundsPlayed = 0; roundsPlayed < 5 && playerScore < 3 && computerScore < 3; roundsPlayed++) {
 
         roundResult = playRound(getPlayerChoice(), getComputerChoice());
 
