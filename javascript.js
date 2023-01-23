@@ -3,6 +3,10 @@ function getRandomInt(min, max) {
     return Math.floor((Math.random() * (max - min) + min))
 }
 
+function cleanString(text) {
+    return text.trim().toLowerCase()
+}
+
 // converts an integer into a string value
 function getComputerChoice() {
     let randomInt = getRandomInt(1, 4);
