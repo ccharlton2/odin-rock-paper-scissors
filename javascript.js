@@ -3,8 +3,25 @@ function getRandomInt(min, max) {
     return Math.floor((Math.random() * (max - min) + min))
 }
 
+// sanitize string
 function cleanString(text) {
     return text.trim().toLowerCase()
+}
+
+// validate user input
+function isValidPlayerChoice(choice) {
+    if (Number.isInteger(parseInt(choice))) {
+        return "Invalid: input cannot be a number!"
+    }
+
+    switch (choice) {
+        case "rock":
+        case "paper":
+        case "scissors":
+            return "Valid"; 
+        default:
+            return "Invalid";
+    }
 }
 
 // converts an integer into a string value
