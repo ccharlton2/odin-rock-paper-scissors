@@ -1,3 +1,11 @@
+const choiceButtons = document.querySelectorAll('.choice')
+choiceButtons.forEach((button) => {
+    button.addEventListener('click', playRound);
+})
+
+const resultsDiv = document.querySelector('.results');
+const resultParagraph = document.createElement('p');
+
 // return a random integer between a specified minimum and maximum (range)
 function getRandomInt(min, max) {
     return Math.floor((Math.random() * (max - min) + min))
@@ -51,30 +59,35 @@ function getPlayerChoice() {
 
 function playRound(e) {
     const playerSelection = e.target.textContent.toLowerCase();
-    let computerSelection = '';
+    let computerSelection = '';  
 
     if (isValidPlayerChoice(playerSelection) === 'Valid') {
 
         computerSelection = getComputerChoice();
 
         if (playerSelection === computerSelection) {
-            console.log(`You both chose ${playerSelection}, draw!`)
+            resultParagraph.textContent = `You both chose ${playerSelection}, draw!`;
+            resultsDiv.appendChild(resultParagraph);
             return 'draw';
         }
         else if (playerSelection === 'rock' && computerSelection === 'scissors') {
-            console.log(`You chose ${playerSelection} which beats ${computerSelection}, you win!`)
+            resultParagraph.textContent = `You chose ${playerSelection} which beats ${computerSelection}, you win!`;
+            resultsDiv.appendChild(resultParagraph);
             return 'win';
         }
         else if (playerSelection === 'scissors' && computerSelection === 'paper') {
-            console.log(`You chose ${playerSelection} which beats ${computerSelection}, you win!`)
+            resultParagraph.textContent = `You chose ${playerSelection} which beats ${computerSelection}, you win!`;
+            resultsDiv.appendChild(resultParagraph);
             return 'win';
         }
         else if (playerSelection === 'paper' && computerSelection === 'rock') {
-            console.log(`You chose ${playerSelection} which beats ${computerSelection}, you win!`)
+            resultParagraph.textContent = `You chose ${playerSelection} which beats ${computerSelection}, you win!`;
+            resultsDiv.appendChild(resultParagraph);
             return 'win';
         }
         else {
-            console.log(`Computer chose ${computerSelection} which beats ${playerSelection}, you lose!`)
+            resultParagraph.textContent = `Computer chose ${computerSelection} which beats ${playerSelection}, you lose!`;
+            resultsDiv.appendChild(resultParagraph);
             return 'loss';
         }
     }
@@ -113,10 +126,5 @@ function game() {
 
     console.log(`wins: ${playerScore}, losses: ${computerScore}, draws: ${draws}`)
 }
-
-const choiceButtons = document.querySelectorAll('.choice')
-choiceButtons.forEach((button) => {
-    button.addEventListener('click', playRound);
-})
 
 // game();
