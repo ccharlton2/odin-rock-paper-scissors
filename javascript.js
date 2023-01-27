@@ -49,29 +49,37 @@ function getPlayerChoice() {
     return choice;
 }
 
-function playRound(playerSelection, computerSelection) {
-    console.log(`Player choice: ${playerSelection}`)
-    console.log(`Comp choice: ${computerSelection}`)
+function playRound(e) {
+    const playerSelection = e.target.textContent.toLowerCase();
+    let computerSelection = '';
 
-    if (playerSelection === computerSelection) {
-        console.log(`You both chose ${playerSelection}, draw!`)
-        return 'draw';
-    }
-    else if (playerSelection === 'rock' && computerSelection === 'scissors') {
-        console.log(`${playerSelection} beats ${computerSelection}, you win!`)
-        return 'win';
-    }
-    else if (playerSelection === 'scissors' && computerSelection === 'paper') {
-        console.log(`${playerSelection} beats ${computerSelection}, you win!`)
-        return 'win';
-    }
-    else if (playerSelection === 'paper' && computerSelection === 'rock') {
-        console.log(`${playerSelection} beats ${computerSelection}, you win!`)
-        return 'win';
+    if (isValidPlayerChoice(playerSelection) === 'Valid') {
+
+        computerSelection = getComputerChoice();
+
+        if (playerSelection === computerSelection) {
+            console.log(`You both chose ${playerSelection}, draw!`)
+            return 'draw';
+        }
+        else if (playerSelection === 'rock' && computerSelection === 'scissors') {
+            console.log(`You chose ${playerSelection} which beats ${computerSelection}, you win!`)
+            return 'win';
+        }
+        else if (playerSelection === 'scissors' && computerSelection === 'paper') {
+            console.log(`You chose ${playerSelection} which beats ${computerSelection}, you win!`)
+            return 'win';
+        }
+        else if (playerSelection === 'paper' && computerSelection === 'rock') {
+            console.log(`You chose ${playerSelection} which beats ${computerSelection}, you win!`)
+            return 'win';
+        }
+        else {
+            console.log(`Computer chose ${computerSelection} which beats ${playerSelection}, you lose!`)
+            return 'loss';
+        }
     }
     else {
-        console.log(`${computerSelection} beats ${playerSelection}, you lose!`)
-        return 'loss';
+        console.log('Error, yo!')
     }
 }
 
@@ -106,4 +114,9 @@ function game() {
     console.log(`wins: ${playerScore}, losses: ${computerScore}, draws: ${draws}`)
 }
 
-game();
+const choiceButtons = document.querySelectorAll('.choice')
+choiceButtons.forEach((button) => {
+    button.addEventListener('click', playRound);
+})
+
+// game();
