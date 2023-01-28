@@ -1,10 +1,18 @@
 const choiceButtons = document.querySelectorAll('.choice')
+let gameData = {playerScore: 0, computerScore: 0, draws: 0, roundsPlayed: 0};
+
 choiceButtons.forEach((button) => {
-    button.addEventListener('click', playRound);
+    button.addEventListener('click', (e) => {
+        // handle result from playRound
+        game(playRound(e));
+    });
 })
 
 const resultsDiv = document.querySelector('.results');
 const resultParagraph = document.createElement('p');
+const playerScoreParagraph = document.querySelector('.player-score');
+const computerScoreParagraph = document.querySelector('.computer-score');
+const drawScoreParagraph = document.querySelector('.draw-score');
 
 // return a random integer between a specified minimum and maximum (range)
 function getRandomInt(min, max) {
@@ -59,36 +67,35 @@ function getPlayerChoice() {
 
 function playRound(e) {
     const playerSelection = e.target.textContent.toLowerCase();
-    let computerSelection = '';  
 
     if (isValidPlayerChoice(playerSelection) === 'Valid') {
 
-        computerSelection = getComputerChoice();
+        const computerSelection = getComputerChoice();
 
         if (playerSelection === computerSelection) {
             resultParagraph.textContent = `You both chose ${playerSelection}, draw!`;
             resultsDiv.appendChild(resultParagraph);
-            return 'draw';
+            return {result: 'draw', playerChoice: playerSelection, computerChoice: computerSelection};
         }
         else if (playerSelection === 'rock' && computerSelection === 'scissors') {
             resultParagraph.textContent = `You chose ${playerSelection} which beats ${computerSelection}, you win!`;
             resultsDiv.appendChild(resultParagraph);
-            return 'win';
+            return {result: 'win', playerChoice: playerSelection, computerChoice: computerSelection};
         }
         else if (playerSelection === 'scissors' && computerSelection === 'paper') {
             resultParagraph.textContent = `You chose ${playerSelection} which beats ${computerSelection}, you win!`;
             resultsDiv.appendChild(resultParagraph);
-            return 'win';
+            return {result: 'win', playerChoice: playerSelection, computerChoice: computerSelection};
         }
         else if (playerSelection === 'paper' && computerSelection === 'rock') {
             resultParagraph.textContent = `You chose ${playerSelection} which beats ${computerSelection}, you win!`;
             resultsDiv.appendChild(resultParagraph);
-            return 'win';
+            return {result: 'win', playerChoice: playerSelection, computerChoice: computerSelection};
         }
         else {
             resultParagraph.textContent = `Computer chose ${computerSelection} which beats ${playerSelection}, you lose!`;
             resultsDiv.appendChild(resultParagraph);
-            return 'loss';
+            return {result: 'loss', playerChoice: playerSelection, computerChoice: computerSelection};
         }
     }
     else {
@@ -96,35 +103,26 @@ function playRound(e) {
     }
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let draws = 0;
-    let roundResult = '';
-
-    for (let roundsPlayed = 0; roundsPlayed < 5 && playerScore < 3 && computerScore < 3; roundsPlayed++) {
-
-        roundResult = playRound(getPlayerChoice(), getComputerChoice());
-
-        if (roundResult === 'win') {
-            playerScore += 1;
-        }
-        else if (roundResult === 'loss') {
-            computerScore += 1;
-        }
-        else {
-            draws += 1;
-        } 
+function game(results) {
+    
+    if (gameData.roundsPlayed === 5) {
+        resultsDiv.textContent = `Game Over!`;
     }
 
-    if (playerScore > computerScore) {
-        console.log('You win!')
+    gameData.roundsPlayed++;
+
+    if (results.result === 'win') {
+        gameData.playerScore += 1;
+        playerScoreParagraph.textContent = gameData.playerScore;
+    }
+    else if (results.result === 'loss') {
+        gameData.computerScore += 1;
+        computerScoreParagraph.textContent = gameData.computerScore;
     }
     else {
-        console.log('You lose!')
-    }
-
-    console.log(`wins: ${playerScore}, losses: ${computerScore}, draws: ${draws}`)
+        gameData.draws += 1;
+        drawScoreParagraph.textContent = gameData.draws;
+    } 
 }
 
 // game();
