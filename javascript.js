@@ -9,6 +9,8 @@ choiceButtons.forEach((button) => {
     });
 })
 
+playAgainButton.addEventListener('click', playAgain);
+
 const resultsDiv = document.querySelector('.results');
 const resultParagraph = document.createElement('p');
 const playerScoreParagraph = document.querySelector('.player-score');
@@ -140,7 +142,20 @@ function game(results) {
 }
 
 function playAgain() {
+    clearResults();
 
+    gameData = {playerScore: 0, computerScore: 0, draws: 0, roundsPlayed: 0};
+    playAgainButton.classList.toggle('hidden');
+    playAgainButton.disabled = true;
+    choiceButtons.forEach(button => button.disabled = false);
+}
+
+function clearResults() {
+    resultsDiv.textContent = '';
+
+    playerScoreParagraph.textContent = '';
+    computerScoreParagraph.textContent = '';
+    drawScoreParagraph.textContent = '';
 }
 
 // game();
