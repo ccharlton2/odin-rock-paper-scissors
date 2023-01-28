@@ -1,4 +1,5 @@
-const choiceButtons = document.querySelectorAll('.choice')
+const choiceButtons = document.querySelectorAll('.choice');
+const playAgainButton = document.querySelector('#play-again');
 let gameData = {playerScore: 0, computerScore: 0, draws: 0, roundsPlayed: 0};
 
 choiceButtons.forEach((button) => {
@@ -106,7 +107,10 @@ function playRound(e) {
 function game(results) {
     
     if (gameData.roundsPlayed === 5) {
-        resultsDiv.textContent = `Game Over!`;
+        resultsDiv.textContent = gameData.playerScore > gameData.computerScore ? 'Game Over! You win!' : 'Game Over! You lose!';
+
+        choiceButtons.forEach(button => button.disabled = true);
+        playAgainButton.classList.toggle('hidden');
     }
 
     gameData.roundsPlayed++;
@@ -123,6 +127,10 @@ function game(results) {
         gameData.draws += 1;
         drawScoreParagraph.textContent = gameData.draws;
     } 
+}
+
+function playAgain() {
+
 }
 
 // game();
