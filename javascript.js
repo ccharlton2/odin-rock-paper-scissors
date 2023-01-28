@@ -106,7 +106,7 @@ function game(results) {
         drawScoreParagraph.textContent = gameData.draws;
     }
 
-    if (gameData.roundsPlayed === 5) {
+    if (gameData.roundsPlayed === 5 || gameData.computerScore === 3 || gameData.playerScore === 3) {
         if (gameData.playerScore > gameData.computerScore) {
             resultsDiv.textContent = 'Game Over! You Win!';
         }
