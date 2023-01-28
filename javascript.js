@@ -22,11 +22,6 @@ function getRandomInt(min, max) {
     return Math.floor((Math.random() * (max - min) + min))
 }
 
-// sanitize string
-function cleanString(text) {
-    return text.trim().toLowerCase()
-}
-
 // validate user input
 function isValidPlayerChoice(choice) {
     if (Number.isInteger(parseInt(choice))) {
@@ -56,16 +51,6 @@ function getComputerChoice() {
         }
     }
     return choice(randomInt)
-}
-
-function getPlayerChoice() {
-    let choice = "";
-
-    while ((choice === "") || !(isValidPlayerChoice(choice) === "Valid")) {
-        choice = cleanString(prompt("Enter your choice!"));
-    }
-    
-    return choice;
 }
 
 function playRound(e) {
@@ -107,8 +92,19 @@ function playRound(e) {
 }
 
 function game(results) {
-    
     gameData.roundsPlayed++;
+    if (results.result === 'win') {
+        gameData.playerScore += 1;
+        playerScoreParagraph.textContent = gameData.playerScore;
+    }
+    else if (results.result === 'loss') {
+        gameData.computerScore += 1;
+        computerScoreParagraph.textContent = gameData.computerScore;
+    }
+    else {
+        gameData.draws += 1;
+        drawScoreParagraph.textContent = gameData.draws;
+    }
 
     if (gameData.roundsPlayed === 5) {
         if (gameData.playerScore > gameData.computerScore) {
@@ -125,20 +121,6 @@ function game(results) {
         playAgainButton.disabled = false;
         playAgainButton.classList.toggle('hidden');
     }
-
-
-    if (results.result === 'win') {
-        gameData.playerScore += 1;
-        playerScoreParagraph.textContent = gameData.playerScore;
-    }
-    else if (results.result === 'loss') {
-        gameData.computerScore += 1;
-        computerScoreParagraph.textContent = gameData.computerScore;
-    }
-    else {
-        gameData.draws += 1;
-        drawScoreParagraph.textContent = gameData.draws;
-    } 
 }
 
 function playAgain() {
@@ -157,5 +139,3 @@ function clearResults() {
     computerScoreParagraph.textContent = '';
     drawScoreParagraph.textContent = '';
 }
-
-// game();
