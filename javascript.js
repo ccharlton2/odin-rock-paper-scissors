@@ -106,14 +106,24 @@ function playRound(e) {
 
 function game(results) {
     
+    gameData.roundsPlayed++;
+
     if (gameData.roundsPlayed === 5) {
-        resultsDiv.textContent = gameData.playerScore > gameData.computerScore ? 'Game Over! You win!' : 'Game Over! You lose!';
+        if (gameData.playerScore > gameData.computerScore) {
+            resultsDiv.textContent = 'Game Over! You Win!';
+        }
+        else if (gameData.computerScore > gameData.playerScore) {
+            resultsDiv.textContent = 'Game Over! You Lose!';
+        }
+        else {
+            resultsDiv.textContent = 'Game Over! Draw!';
+        }
 
         choiceButtons.forEach(button => button.disabled = true);
+        playAgainButton.disabled = false;
         playAgainButton.classList.toggle('hidden');
     }
 
-    gameData.roundsPlayed++;
 
     if (results.result === 'win') {
         gameData.playerScore += 1;
